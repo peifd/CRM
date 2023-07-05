@@ -20,8 +20,11 @@ namespace CRM
 {
    public class DBHelper
     {
-       public static string DBFilePath =AppDomain.CurrentDomain.BaseDirectory+"INI.sqlite";
-       private static SqLiteAccess db = new SqLiteAccess(DBFilePath, "gongjianchun!@#$%^&*()brysjhhrhl");
+
+       //public static string DBFilePath =AppDomain.CurrentDomain.BaseDirectory+"INI.sqlite";
+       //private static SqLiteAccess db = new SqLiteAccess(DBFilePath, "gongjianchun!@#$%^&*()brysjhhrhl");
+       public static string DBFilePath =AppDomain.CurrentDomain.BaseDirectory+"data.db3";
+       private static SqLiteAccess db = new SqLiteAccess(DBFilePath, "");
        public static int ExecuteNonQuery(string cmdText,string[] paramsList, object[] values)
        {
           return db.ExecuteNonQuery(cmdText, CommandType.Text, paramsList, values);

@@ -28,7 +28,7 @@ namespace CRM
         {
             InitializeComponent();
             InitUserType();
-            CommStatic.TxtBoxCardId = txtCardId;
+            //CommStatic.TxtBoxCardId = txtCardId;
             txtUserName.Focus();
         }
         public frmAddUser(DataRow _row)
@@ -38,9 +38,9 @@ namespace CRM
             InitUserType();
             cbxUserType.Text = row["UserTypeName"].ToString();
 
-            txtCardId.Text = row["VipCardId"].ToString();
-            txtCardId.Tag = row;
-            CommStatic.TxtBoxCardId = txtCardId;
+            //txtCardId.Text = row["VipCardId"].ToString();
+            //txtCardId.Tag = row;
+            //CommStatic.TxtBoxCardId = txtCardId;
 
             txtTel.Text = row["Tel"] == null ? "" : row["Tel"].ToString();
             txtUserName.Text = row["UserName"] == null ? "" : row["UserName"].ToString();
@@ -98,12 +98,12 @@ namespace CRM
         {
             try
             {
-                string cardId = txtCardId.Text;
-                if (string.IsNullOrEmpty(cardId))
-                {
-                    MessageBox.Show("卡号不能为空，请在读卡器上刷卡");
-                    return;
-                }
+                //string cardId = txtCardId.Text;
+                //if (string.IsNullOrEmpty(cardId))
+                //{
+                //    MessageBox.Show("卡号不能为空，请在读卡器上刷卡");
+                //    return;
+                //}
                 object o = cbxUserType.SelectedValue;
                 if (o == null || o.ToString() == "")
                 {
@@ -115,40 +115,40 @@ namespace CRM
                 object[] obj;
                 if (this.row == null)//新增
                 {
-                    sql = "select * from Card where CardId=@CardId";
-                    prm = new string[] { "@CardId" };
-                    obj = new object[] { cardId };
-                    DataSet ds = DBHelper.ExecuteDataSet(sql, prm, obj);
-                    if (ds == null || ds.Tables[0].Rows.Count < 1)
-                    {
-                        MessageBox.Show("请勿使用非法卡，否则可能导致系统风险！");
-                        return;
-                    }
-                    DataRow row = ds.Tables[0].Rows[0];
-                    string cipherTxt = row["Org"].ToString();
-                    string cleartTxt = Tools.Tools.Decrypt(cipherTxt);
-                    string[] args = cleartTxt.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                    if (args.Length != 4 || args[0] != row["CardId"].ToString())
-                    {
-                        MessageBox.Show("此卡数据异常，无法使用，请换其他卡");
-                        return;
-                    }
-                    DateTime time = DateTime.Parse(row["CreateTime"].ToString());
-                    string temp = row["CardId"].ToString() + time.ToString("yyyyMMdd");
-                    temp = Tools.Tools.GetMD5(temp);
-                    if (temp != row["Key"].ToString())
-                    {
-                        MessageBox.Show("请勿使用非法卡，否则可能导致系统风险！");
-                        return;
-                    }
-                    if (row["Status"].ToString() != "1")
-                    {
-                        MessageBox.Show("此卡已经使用，不能重复使用");
-                        return;
-                    }
+                    //sql = "select * from card where cardid=@cardid";
+                    //prm = new string[] { "@cardid" };
+                    //obj = new object[] { cardid };
+                    //dataset ds = dbhelper.executedataset(sql, prm, obj);
+                    //if (ds == null || ds.tables[0].rows.count < 1)
+                    //{
+                    //    messagebox.show("请勿使用非法卡，否则可能导致系统风险！");
+                    //    return;
+                    //}
+                    //datarow row = ds.tables[0].rows[0];
+                    //string ciphertxt = row["org"].tostring();
+                    //string clearttxt = tools.tools.decrypt(ciphertxt);
+                    //string[] args = clearttxt.split(",".tochararray(), stringsplitoptions.removeemptyentries);
+                    //if (args.length != 4 || args[0] != row["cardid"].tostring())
+                    //{
+                    //    messagebox.show("此卡数据异常，无法使用，请换其他卡");
+                    //    return;
+                    //}
+                    //datetime time = datetime.parse(row["createtime"].tostring());
+                    //string temp = row["cardid"].tostring() + time.tostring("yyyymmdd");
+                    //temp = tools.tools.getmd5(temp);
+                    //if (temp != row["key"].tostring())
+                    //{
+                    //    messagebox.show("请勿使用非法卡，否则可能导致系统风险！");
+                    //    return;
+                    //}
+                    //if (row["status"].tostring() != "1")
+                    //{
+                    //    messagebox.show("此卡已经使用，不能重复使用");
+                    //    return;
+                    //}
                     sql = "Insert into User(ID,VipCardId,UserName,Sex,Tel,CreateTime,Money,Active,Address,Remark,UserType)values(@ID,@VipCardId,@UserName,@Sex,@Tel,@CreateTime,@Moeny,@Active,@Address,@Remark,@UserType)";
                     prm = new string[] { "@ID", "@VipCardId", "@UserName", "@Sex", "@Tel", "@CreateTime", "@Moeny", "@Active", "@Address", "@Remark", "@UserType" };
-                    obj = new object[] { Guid.NewGuid().ToString("N"), cardId, txtUserName.Text, radioButtonMan.Checked ? 1 : 2, txtTel.Text, DateTime.Now, 0, radioButtonOK.Checked ? 1 : 2, txtAddress.Text, txtRemark.Text, o.ToString() };
+                    obj = new object[] { Guid.NewGuid().ToString("N"), Guid.NewGuid().ToString("N"), txtUserName.Text, radioButtonMan.Checked ? 1 : 2, txtTel.Text, DateTime.Now, 0, radioButtonOK.Checked ? 1 : 2, txtAddress.Text, txtRemark.Text, o.ToString() };
                 }
                 else//编辑
                 {
@@ -158,8 +158,8 @@ namespace CRM
                 }
                 if (DBHelper.ExecuteNonQuery(sql, prm, obj) > 0)
                 {
-                    if (row == null)//新增的卡要更新卡库的状态
-                        DBHelper.ExecuteNonQuery("Update Card Set Status=2 where CardID=@CardID", new string[] { "@CardID" }, new object[] { cardId });
+                    //if (row == null)//新增的卡要更新卡库的状态
+                    //    DBHelper.ExecuteNonQuery("Update Card Set Status=2 where CardID=@CardID", new string[] { "@CardID" }, new object[] { Guid.NewGuid().ToString("N") });
                     MessageBox.Show("保存成功！");
                     CommStatic.TxtBoxCardId = null;
                     this.DialogResult = DialogResult.OK;

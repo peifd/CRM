@@ -1,0 +1,64 @@
+ string sql = "Insert into ActionLog(ID,ActionName,ActionTime,AdminId,ActionContent)values(@ID,@ActionName,@ActionTime,@AdminId,@ActionContent)";
+ if (DBHelper.ExecuteNonQuery(sql, new string[] { "@ID", "@ActionName", "@ActionTime", "@AdminId", "@ActionContent" },
+    new object[] { Guid.NewGuid().ToString("N"), actName.ToString(), DateTime.Now, CommStatic.MyCache.Login.Id, actContent }) > 0)
+    return true;
+
+ sql = "Insert into Employee(ID,EmployeeName,Tel,Address,EmployeeType,Active,CardId,Sex,BirthDay,CreateTime,UpdateTime,EmployeeNum)values(@ID,@EmployeeName,@Tel,@Address,@EmployeeType,@Active,@CardId,@Sex,@BirthDay,@CreateTime,@UpdateTime,@EmployeeNum)";
+ prm = new string[] { "@ID", "@EmployeeName", "@Tel", "@Address", "@EmployeeType", "@Active", "@CardId", "@Sex", "@BirthDay", "@CreateTime", "@UpdateTime", "@EmployeeNum" };
+ obj = new object[] { Guid.NewGuid().ToString("N"), userName, txtTel.Text, txtAddress.Text, userType.ToString(), radioButtonOK.Checked ? 1 : 2, cardId, radioButtonMan.Checked ? 1 : 2, dateTimePickerBithDay.Value, DateTime.Now, DateTime.Now, userNum };
+				
+ sql = "Insert into User(ID,VipCardId,UserName,Sex,Tel,CreateTime,Money,Active,Address,Remark,UserType)values(@ID,@VipCardId,@UserName,@Sex,@Tel,@CreateTime,@Moeny,@Active,@Address,@Remark,@UserType)";
+ prm = new string[] { "@ID", "@VipCardId", "@UserName", "@Sex", "@Tel", "@CreateTime", "@Moeny", "@Active", "@Address", "@Remark", "@UserType" };
+ obj = new object[] { Guid.NewGuid().ToString("N"), Guid.NewGuid().ToString("N"), txtUserName.Text, radioButtonMan.Checked ? 1 : 2, txtTel.Text, DateTime.Now, 0, radioButtonOK.Checked ? 1 : 2, txtAddress.Text, txtRemark.Text, o.ToString() };
+		
+ sql = "Insert into Admin(ID,AdminName,Tel,LoginName,LoginPwd,Rights,CreateTime,Active,Remark)values(@ID,@AdminName,@Tel,@LoginName,@LoginPwd,@Rights,@CreateTime,@Active,@Remark)";
+ prm = new string[] { "@ID", "@AdminName", "@Tel", "@LoginName", "@LoginPwd", "@Rights", "@CreateTime", "@Active", "@Remark" };
+ obj = new object[] { Guid.NewGuid().ToString("N"), adminName, txtTel.Text.Trim(), loginName, Tools.Tools.GetMD5(pwd), adminType, DateTime.Now, cbxActive.Text == "启用" ? "1" : "2", remark };
+
+ sql = "Insert into Card(ID,CardId,Status,Key,CreateTime,Org)values(@ID,@CardId,@Status,@Key,@CreateTime,@Org)";
+ string[] prm = new string[] { "@ID", "@CardId", "@Status", "@Key", "@CreateTime", "@Org" };
+ object[] obj = new object[] { Guid.NewGuid().ToString("N"), col[0], col[1], col[2], DateTime.Parse(col[3]), lineData };
+			
+ string sql = "Insert into EventWaring";
+ StringBuilder sbPrm = new StringBuilder();
+ sbPrm.Append("(ID,WaringTitle,EventContent,WaringType");
+ StringBuilder sbValues = new StringBuilder();
+ sbValues.Append("'" + Guid.NewGuid().ToString() + "','" + title + "','" + waringContent + "'," + getWaringType(waringType));
+ sbPrm.Append(",WaringTime,CycleWaringTime,CreateTime");
+ sbValues.Append(",@WaringTime,@CycleWaringTime,@CreateTime");
+ string[] prmArgs = new string[] { "@WaringTime", "@CycleWaringTime", "@CreateTime" };
+ object[] obj = new object[3];
+		
+ sql = "Insert into EmployeeCheckOn(Id,CardId,CurrTime,EmployeeId,EmployeeName)values('{0}','{1}',@CurrTime,'{2}','{3}')";
+ sql = string.Format(sql, Guid.NewGuid().ToString("N"), sn, ds.Tables[0].Rows[0]["Id"].ToString(), ds.Tables[0].Rows[0]["EmployeeName"] == null ? "" : ds.Tables[0].Rows[0]["EmployeeName"].ToString());
+ DBHelper.ExecuteNonQuery(sql, new string[] { "@CurrTime" }, new object[] { DateTime.Now });
+		
+ string employeeId = cmbxEmployee.SelectedValue == null ? "" : cmbxEmployee.SelectedValue.ToString();
+ string billId = DateTime.Now.ToString("yyyyMMddHHmmss");
+ string sql = "Insert into ConsumeBill(Id,BillId,EmployeeId,EmployeeName,ConsumeMoney,ConsumeTime,AdminId,AdminName,UserId,UserName,UserType,CardId)values(@Id,@BillId,@EmployeeId,@EmployeeName,@ConsumeMoney,@ConsumeTime,@AdminId,@AdminName,@UserId,@UserName,@UserType,@CardId)";
+ string[] prm = new string[] { "@Id", "@BillId", "@EmployeeId", "@EmployeeName", "@ConsumeMoney", "@ConsumeTime", "@AdminId", "@AdminName", "@UserId", "@UserName", "@UserType", "@CardId" };
+ object[] obj = new object[] { Guid.NewGuid().ToString("N"), billId, employeeId, cmbxEmployee.Text, txtSumMoney.Text, DateTime.Now, CommStatic.MyCache.Login.Id, CommStatic.MyCache.Login.AdminName, linkLabelMore.Tag == null ? "" : linkLabelMore.Tag.ToString(), txtUserName.Text == "" ? "" : txtUserName.Text, txtUserType.Text == "" ? "" : txtUserType.Text, txtCardId.Text == "" ? "" : txtCardId.Text }; 
+		
+ sql = "Insert into ConsumeHistory(Id,ConsumeBillId,ProductID,ProductName,DiscountPrice,ConsumeMoney,ProductCount,MarketPrice)values(@Id,@ConsumeBillId,@ProductID,@ProductName,@DiscountPrice,@ConsumeMoney,@ProductCount,@MarketPrice)";
+ prm = new string[] { "@Id", "@ConsumeBillId", "@ProductID", "@ProductName", "@DiscountPrice", "@ConsumeMoney", "@ProductCount", "@MarketPrice" };
+ obj = new object[] { Guid.NewGuid().ToString("N"), billId, row["ProductId"].ToString(), row["ProductName"].ToString(), row["DiscountPrice"].ToString(), row["SumPrice"].ToString(), row["Count"].ToString(), row["MarketPrice"].ToString() };
+ DBHelper.ExecuteNonQuery(sql, prm, obj);
+
+ sql = "Insert into Product(ID,ProductName,Remark,CreateTime,UpdateTime)values(@ID,@ProductName,@Remark,@CreateTime,@UpdateTime)";
+ prm = new string[] { "@ID", "@ProductName", "@Remark", "@CreateTime", "@UpdateTime" };
+ obj = new object[] { Guid.NewGuid().ToString("N"), txtProductName.Text, txtRemark.Text.Trim() == "" ? "" : txtRemark.Text, DateTime.Now, DateTime.Now };						
+		
+ sql = "Insert into ProductMainPrice(Id,ProductId,PriceType,MarketPrice,CreateTime,UpdateTime)values(@Id,@ProductId,@PriceType,@MarketPrice,@CreateTime,@UpdateTime)";
+ prm = new string[] { "@Id", "@ProductId", "@PriceType", "@MarketPrice", "@CreateTime", "@UpdateTime" };
+ obj = new object[] { mainPriceId = Guid.NewGuid().ToString("N"), productId, priceType, txtBasicPrice.Text.Trim(), DateTime.Now, DateTime.Now };
+		
+ sl = "Insert into ProductMemberShipPrice(Id,ProductId,ProductMainPriceId,UserTypeId,DiscountType,DiscountPrice,DiscountRate,CreateTime,UpdateTime)values(@Id,@ProductId,@ProductMainPriceId,@UserTypeId,@DiscountType,@DiscountPrice,@DiscountRate,@CreateTime,@UpdateTime)";
+ prm = new string[] { "@Id", "@ProductId", "@ProductMainPriceId", "@UserTypeId", "@DiscountType", "@DiscountPrice", "@DiscountRate", "@CreateTime", "@UpdateTime" };
+ obj = new object[] { Guid.NewGuid().ToString("N"), row["ProductId"].ToString(), row["Id"].ToString(), vipTypeId, discountType, txtDiscountPrice.Text.Trim(), txtDiscountRate.Text.Trim(), DateTime.Now, DateTime.Now };
+             
+ sring Id = btnSave.Tag == null ? Guid.NewGuid().ToString("N") : btnSave.Tag.ToString();
+ sql = "Insert into AdminRole(Id,Name,RoleList)values('" + Id + "','" + txtRoleName.Text + "','" + sb.ToString() + "')";
+		
+ sql = "Insert into UserType(ID,UserTypeName,Remark,Sort)values(@ID,@UserTypeName,@Remark,@Sort)";
+ prm = new string[] { "@ID", "@UserTypeName", "@Remark", "@Sort" };
+ obj = new object[] { Guid.NewGuid().ToString("N"), typeName, remark, this.sort };

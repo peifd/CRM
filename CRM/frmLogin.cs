@@ -89,6 +89,8 @@ namespace CRM
                     return;
                 }
                 DataRow row = ds.Tables[0].Rows[0];
+                
+
                 if (row["LoginPwd"].ToString() != Tools.Tools.GetMD5(pwd))
                 {
                     MessageBox.Show("密码输入错误，请重新输入正确的密码！");

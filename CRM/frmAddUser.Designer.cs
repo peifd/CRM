@@ -43,8 +43,6 @@ namespace CRM
             this.label1 = new System.Windows.Forms.Label();
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtCardId = new System.Windows.Forms.TextBox();
             this.radioButtonMan = new System.Windows.Forms.RadioButton();
             this.radioButtonWen = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
@@ -91,23 +89,6 @@ namespace CRM
             this.btnSave.Text = "保存";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(37, 65);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(41, 12);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "卡  号";
-            // 
-            // txtCardId
-            // 
-            this.txtCardId.Location = new System.Drawing.Point(84, 62);
-            this.txtCardId.Name = "txtCardId";
-            this.txtCardId.ReadOnly = true;
-            this.txtCardId.Size = new System.Drawing.Size(218, 21);
-            this.txtCardId.TabIndex = 2;
             // 
             // radioButtonMan
             // 
@@ -288,10 +269,8 @@ namespace CRM
             this.Controls.Add(this.txtTel);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.txtCardId);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.txtUserName);
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -313,7 +292,6 @@ namespace CRM
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtUserName;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.RadioButton radioButtonMan;
         private System.Windows.Forms.RadioButton radioButtonWen;
         private System.Windows.Forms.Label label3;
@@ -331,6 +309,5 @@ namespace CRM
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.PictureBox pbxAddUserType;
         private System.Windows.Forms.Panel panel1;
-        public System.Windows.Forms.TextBox txtCardId;
     }
 }

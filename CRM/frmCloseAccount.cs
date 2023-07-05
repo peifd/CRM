@@ -41,7 +41,7 @@ namespace CRM
                 MessageBox.Show("用户信息不完整，无法进行结账");
                 return;
             }
-            sn = uint.Parse(row["VipCardId"].ToString());
+        //    sn = uint.Parse(row["VipCardId"].ToString());
             this.DialogResult = DialogResult.OK;
         }
 

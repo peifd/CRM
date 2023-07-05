@@ -45,7 +45,7 @@ namespace CRM
             txtStatus.Text = (row["Active"] == null ? "" : row["Active"].ToString()) == "1" ? "启用" : "停用";
             txtTel.Text = row["Tel"] == null ? "" : row["Tel"].ToString();
             txtUserName.Text = row["UserName"] == null ? "" : row["UserName"].ToString();
-            sn = uint.Parse(row["VipCardId"].ToString());
+          //  sn = uint.Parse(row["VipCardId"].ToString());
         }
 
         private void btnOk_Click(object sender, EventArgs e)

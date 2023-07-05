@@ -113,5 +113,11 @@ namespace Tools
 
             return System.Text.Encoding.Unicode.GetString(decryptedData);
         }
+
+        public static void Main(String[] args)
+        {
+          string s =   Tools.GetMD5("123456");
+          Console.WriteLine(s);
+        }
     }
 }
