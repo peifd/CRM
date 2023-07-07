@@ -67,11 +67,11 @@ namespace CRM
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(37, 28);
+            this.label1.Location = new System.Drawing.Point(11, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 12);
+            this.label1.Size = new System.Drawing.Size(77, 12);
             this.label1.TabIndex = 0;
-            this.label1.Text = "姓  名";
+            this.label1.Text = "姓  名(必填)";
             // 
             // txtUserName
             // 
@@ -124,11 +124,11 @@ namespace CRM
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(37, 139);
+            this.label4.Location = new System.Drawing.Point(11, 139);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(41, 12);
+            this.label4.Size = new System.Drawing.Size(77, 12);
             this.label4.TabIndex = 0;
-            this.label4.Text = "手机号";
+            this.label4.Text = "手机号(必填)";
             // 
             // txtTel
             // 
@@ -187,11 +187,11 @@ namespace CRM
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(39, 222);
+            this.label6.Location = new System.Drawing.Point(10, 222);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 12);
+            this.label6.Size = new System.Drawing.Size(77, 12);
             this.label6.TabIndex = 4;
-            this.label6.Text = "类  型";
+            this.label6.Text = "类  型(必选)";
             // 
             // cbxUserType
             // 

@@ -104,7 +104,21 @@ namespace CRM
                 //    MessageBox.Show("卡号不能为空，请在读卡器上刷卡");
                 //    return;
                 //}
+
+                if (string.IsNullOrEmpty(txtUserName.Text))
+                {
+                    MessageBox.Show("请输入客户姓名");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(txtTel.Text))
+                {
+                    MessageBox.Show("请输入电话号码");
+                    return;
+                }
+
                 object o = cbxUserType.SelectedValue;
+
                 if (o == null || o.ToString() == "")
                 {
                     MessageBox.Show("请选择会员类型，如果没有合适的类型，可以点击后面的+号，管理类型");
@@ -150,7 +164,7 @@ namespace CRM
                     double times = ts.TotalSeconds;
                     sql = "Insert into User(ID,VipCardId,UserName,Sex,Tel,CreateTime,Money,Active,Address,Remark,UserType)values(@ID,@VipCardId,@UserName,@Sex,@Tel,@CreateTime,@Moeny,@Active,@Address,@Remark,@UserType)";
                     prm = new string[] { "@ID", "@VipCardId", "@UserName", "@Sex", "@Tel", "@CreateTime", "@Moeny", "@Active", "@Address", "@Remark", "@UserType" };
-                    obj = new object[] { Guid.NewGuid().ToString("N"), Guid.NewGuid().ToString("N"), txtUserName.Text, radioButtonMan.Checked ? 1 : 2, txtTel.Text, DateTime.Now, 0, radioButtonOK.Checked ? 1 : 2, txtAddress.Text, txtRemark.Text, o.ToString() };
+                    obj = new object[] { Guid.NewGuid().ToString("N"), txtTel.Text, txtUserName.Text, radioButtonMan.Checked ? 1 : 2, txtTel.Text, DateTime.Now, 0, radioButtonOK.Checked ? 1 : 2, txtAddress.Text, txtRemark.Text, o.ToString() };
                 }
                 else//编辑
                 {
